@@ -23,5 +23,5 @@ public class CarMaker {
     private String name;
 
     @Column(name = "native_country")
-    private Long nativeCountry;
+    private String nativeCountry;
 }

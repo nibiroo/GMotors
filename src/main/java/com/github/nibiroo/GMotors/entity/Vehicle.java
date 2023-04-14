@@ -37,7 +37,7 @@ public class    Vehicle {
     private Boolean isAutomatic;
 
     @Column(name = "km")
-    private float km;
+    private Float km;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carmaker")

@@ -1,7 +1,6 @@
 package com.github.nibiroo.GMotors.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,13 +21,17 @@ public class Announcement {
         // Opcionais do carro
         // Preço
         // Cidade
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "id_vehicle")
     private Vehicle vehicle;
 
-    private List<OptionalVehicle> optionalVehicleList;
-
+    @Column(name = "price")
     private float price;
 
+    @Column(name = "city")
     private String city;
 }
