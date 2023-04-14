@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "vehicle")
-public class Vehicle {
+public class    Vehicle {
 
     // O carro tem:
         // Modelo
@@ -31,12 +33,18 @@ public class Vehicle {
     @Column(name = "year")
     private Long year;
 
+    @Column(name = "transmission")
+    private Boolean isAutomatic;
+
+    @Column(name = "km")
+    private float km;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carmaker")
     private CarMaker carMaker;
 
-    @ManyToMany()
+    @OneToMany
+    @JoinColumn(name = "id_optional")
     private OptionalVehicle optionalVehicle;
 
-    private Boolean isAutomatic;
 }
