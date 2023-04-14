@@ -14,6 +14,13 @@ import lombok.Setter;
 @Table(name = "vehicle")
 public class Vehicle {
 
+    // O carro tem:
+        // Modelo
+        // Ano
+        // Montadora
+        // Opcionais -> Todo carro tem opcional
+        // Cambio
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +29,14 @@ public class Vehicle {
     private String model;
 
     @Column(name = "year")
-    private Integer year;
+    private Long year;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carmaker")
     private CarMaker carMaker;
+
+    @ManyToMany()
+    private OptionalVehicle optionalVehicle;
+
+    private Boolean isAutomatic;
 }
