@@ -3,7 +3,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/db_bft_gmotors
     username: bft_user
     password: bft_pass
-
   jpa:
     properties:
       hibernate:

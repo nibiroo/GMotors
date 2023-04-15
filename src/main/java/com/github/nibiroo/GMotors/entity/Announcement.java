@@ -15,12 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "announcement")
 public class Announcement {
-    // Um anùncio tem:
-        // Id anúncio
-        // Carro
-        // Opcionais do carro
-        // Preço
-        // Cidade
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

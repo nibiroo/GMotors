@@ -16,13 +16,6 @@ import java.util.Set;
 @Table(name = "vehicle")
 public class    Vehicle {
 
-    // O carro tem:
-        // Modelo
-        // Ano
-        // Montadora
-        // Opcionais -> Todo carro tem opcional
-        // Cambio
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
