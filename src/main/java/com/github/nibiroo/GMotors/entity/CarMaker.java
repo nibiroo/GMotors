@@ -13,7 +13,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "carmaker")
 public class CarMaker {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

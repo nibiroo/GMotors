@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JoinColumnOrFormula;
 
 @Getter
 @Setter
@@ -20,4 +21,8 @@ public class OptionalVehicle {
 
     @Column(name = "short_description")
     private String shortDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "id_vehicle")
+    private Vehicle vehicle;
 }
