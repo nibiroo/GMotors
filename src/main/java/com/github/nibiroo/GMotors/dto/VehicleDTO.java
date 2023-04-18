@@ -24,10 +24,9 @@ public class VehicleDTO {
 
     private Boolean isAutomatic;
 
-    private Float km;
-
     private CarMaker carMaker;
 
-    private List<OptionalVehicle> optionalVehicle;
+    @ElementCollection
+    private List<Long> optionalVehicleIds;
 
 }

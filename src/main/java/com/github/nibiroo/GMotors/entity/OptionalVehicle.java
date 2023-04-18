@@ -14,15 +14,10 @@ import org.hibernate.annotations.JoinColumnOrFormula;
 @Entity
 @Table(name = "optional_vehicle")
 public class OptionalVehicle {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "short_description")
     private String shortDescription;
-
-    @ManyToOne
-    @JoinColumn(name = "id_vehicle")
-    private Vehicle vehicle;
 }

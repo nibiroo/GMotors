@@ -27,6 +27,9 @@ public class Announcement {
     @Column(name = "price")
     private float price;
 
+    @Column(name = "km")
+    private Float km;
+
     @Column(name = "city")
     private String city;
 }

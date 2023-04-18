@@ -5,13 +5,11 @@ import com.github.nibiroo.GMotors.entity.APIListResponse;
 import com.github.nibiroo.GMotors.entity.CarMaker;
 import com.github.nibiroo.GMotors.mapper.CarMakerMapper;
 import com.github.nibiroo.GMotors.service.CarMakerService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,7 +25,7 @@ public class CarMakerController {
         this.carMakerMapper = carMakerMapper;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<APIListResponse<CarMakerDTO>> findAll() {
         var carMakerDTOS = this.carMakerService.getAllCarMakerFind()
                                                 .stream()

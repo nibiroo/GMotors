@@ -37,7 +37,7 @@ public class    Vehicle {
     @JoinColumn(name = "id_carmaker")
     private CarMaker carMaker;
 
-    @OneToMany(mappedBy = "vehicle")
+    @OneToMany
     private List<OptionalVehicle> optionalVehicle;
 
 }

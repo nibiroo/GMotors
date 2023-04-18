@@ -11,7 +11,6 @@ public class VehicleMapper {
         var dto = new VehicleDTO();
 
         dto.setId(entity.getId());
-        dto.setKm(entity.getKm());
         dto.setModel(entity.getModel());
         dto.setYear(entity.getYear());
         dto.setCarMaker(entity.getCarMaker());
