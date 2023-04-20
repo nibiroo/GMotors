@@ -1,9 +1,8 @@
 package com.github.nibiroo.GMotors.service.impl;
 
-import com.github.nibiroo.GMotors.entity.OptionalVehicle;
+import com.github.nibiroo.GMotors.entity.Optional;
 import com.github.nibiroo.GMotors.repository.OptionalVehicleRepository;
 import com.github.nibiroo.GMotors.service.OptionalVehicleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,26 +20,26 @@ public class OptionalVehicleServiceImpl implements OptionalVehicleService {
     }
 
     @Override
-    public List<OptionalVehicle> getAllOptionalVehicleFind() {
+    public List<Optional> getAllOptionalVehicleFind() {
         return this.optionalVehicleRepository.findAll();
     }
 
     @Override
-    public OptionalVehicle getByIdOptionalVehicleFind(Long id) {
+    public Optional getByIdOptionalVehicleFind(Long id) {
         return this.optionalVehicleRepository.findById(id)
                         .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "There isn't Optional Vehicle with id " + id));
     }
 
     @Override
-    public OptionalVehicle save(OptionalVehicle optionalVehicle) {
-        return this.optionalVehicleRepository.save(optionalVehicle);
+    public Optional save(Optional optional) {
+        return this.optionalVehicleRepository.save(optional);
     }
 
     @Override
-    public OptionalVehicle updateById(Long id, OptionalVehicle optionalVehicle) {
+    public Optional updateById(Long id, Optional optional) {
         var optVehicleExist = this.optionalVehicleRepository.findById(id).map(it -> {
-            optionalVehicle.setId(it.getId());
-            this.optionalVehicleRepository.save(optionalVehicle);
+            optional.setId(it.getId());
+            this.optionalVehicleRepository.save(optional);
             return it;
         }).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "There isn't Optional Vehicle with id " + id));
 

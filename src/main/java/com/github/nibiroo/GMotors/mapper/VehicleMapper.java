@@ -1,7 +1,6 @@
 package com.github.nibiroo.GMotors.mapper;
 
 import com.github.nibiroo.GMotors.dto.VehicleDTO;
-import com.github.nibiroo.GMotors.entity.CarMaker;
 import com.github.nibiroo.GMotors.entity.Vehicle;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ public class VehicleMapper {
         dto.setModel(entity.getModel());
         dto.setYear(entity.getYear());
         dto.setCarMaker(entity.getCarMaker());
-        dto.setOptionalVehicle(entity.getOptionalVehicle());
+        dto.setOptionalVehicle(entity.getOptional());
         dto.setIsAutomatic(entity.getIsAutomatic());
 
         return dto;

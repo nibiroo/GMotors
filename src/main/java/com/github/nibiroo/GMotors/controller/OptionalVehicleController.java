@@ -2,7 +2,7 @@ package com.github.nibiroo.GMotors.controller;
 
 import com.github.nibiroo.GMotors.dto.OptionalVehicleDTO;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
-import com.github.nibiroo.GMotors.entity.OptionalVehicle;
+import com.github.nibiroo.GMotors.entity.Optional;
 import com.github.nibiroo.GMotors.mapper.OptionalVehicleMapper;
 import com.github.nibiroo.GMotors.service.OptionalVehicleService;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +40,13 @@ public class OptionalVehicleController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<OptionalVehicle> save(@RequestBody OptionalVehicle optionalVehicle) {
-        return new ResponseEntity<>(this.optionalVehicleService.save(optionalVehicle), HttpStatus.CREATED);
+    public ResponseEntity<Optional> save(@RequestBody Optional optional) {
+        return new ResponseEntity<>(this.optionalVehicleService.save(optional), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<OptionalVehicle> updateById(@PathVariable Long id, @RequestBody OptionalVehicle optionalVehicle) {
-        return new ResponseEntity<>(this.optionalVehicleService.updateById(id, optionalVehicle), HttpStatus.OK);
+    public ResponseEntity<Optional> updateById(@PathVariable Long id, @RequestBody Optional optional) {
+        return new ResponseEntity<>(this.optionalVehicleService.updateById(id, optional), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

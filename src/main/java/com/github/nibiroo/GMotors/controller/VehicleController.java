@@ -51,6 +51,7 @@ public class VehicleController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<Vehicle> save(@RequestBody Vehicle vehicle) {
+        //Receber DTO no RequestBody; converter DTO para Model; Salva no service; Converte Model para DTO; Volta um DTO
         return new ResponseEntity<>(this.vehicleService.save(vehicle), HttpStatus.CREATED);
     }
 

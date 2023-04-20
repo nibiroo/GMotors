@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -37,7 +36,8 @@ public class    Vehicle {
     @JoinColumn(name = "id_carmaker")
     private CarMaker carMaker;
 
+    //ManyToMany(...)
     @OneToMany
-    private List<OptionalVehicle> optionalVehicle;
+    private List<Optional> optional;
 
 }

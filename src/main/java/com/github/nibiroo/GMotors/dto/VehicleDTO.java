@@ -1,7 +1,6 @@
 package com.github.nibiroo.GMotors.dto;
 
 import com.github.nibiroo.GMotors.entity.CarMaker;
-import com.github.nibiroo.GMotors.entity.OptionalVehicle;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
