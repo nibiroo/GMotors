@@ -18,6 +18,7 @@ public class    Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "model")
@@ -29,15 +30,16 @@ public class    Vehicle {
     @Column(name = "transmission")
     private Boolean isAutomatic;
 
-    @Column(name = "km")
-    private Float km;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carmaker")
     private CarMaker carMaker;
 
     //ManyToMany(...)
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "optional_vehicle",
+            joinColumns = @JoinColumn(name = "id_vehicle"), inverseJoinColumns = @JoinColumn(name = "id_optional")
+    )
     private List<Optional> optional;
 
 }

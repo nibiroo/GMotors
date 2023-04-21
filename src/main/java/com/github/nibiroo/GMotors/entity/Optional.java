@@ -19,6 +19,4 @@ public class Optional {
 
     @Column(name = "short_description")
     private String shortDescription;
-
-
 }

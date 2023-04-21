@@ -8,14 +8,14 @@ Requisitos:
  Abre o PowerShell como administrador e digite na linha de comando:
 
 ```
-dism.exe/online/enable-feature/featurename:Microsoft-Windows-Subsystem-Linux/all/norestart
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 ```
  
  2 - Habilitando o VPM (Virtual Machine Platform)
  No PowerShell, digite:
  
  ```
-dism.exe/online/enable-feature/featurename:VirtualMachinePlatform/all/norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
  ```
  
  3 - Reinicie o computador
@@ -34,7 +34,7 @@ dism.exe/online/enable-feature/featurename:VirtualMachinePlatform/all/norestart
  No PowerShell > wsl --set-default-version 2
 
  6 - Instale uma distribuição Linux
- Exemplo: Ubuntu https://www.microsoft.com/en-gb/p/ubuntu-2004-lts/9n6svws3rx71?activetab=pivot:overviewtab
+ Exemplo: Ubuntu https://www.microsoft.com/en-gb/p/ubuntu-2004-lts/9n6svws3rx71?activetab=pivot:overviewtab ou wsl --install -d Ubuntu
   - Apos fazer a instalação da distribuição, siga as instruções do prompt de comando da mesma
   
  7 - Instale o Docker
