@@ -34,11 +34,11 @@ public class    Vehicle {
     @JoinColumn(name = "id_carmaker")
     private CarMaker carMaker;
 
-    //ManyToMany(...)
     @ManyToMany
     @JoinTable(
             name = "optional_vehicle",
-            joinColumns = @JoinColumn(name = "id_vehicle"), inverseJoinColumns = @JoinColumn(name = "id_optional")
+            joinColumns = @JoinColumn(name = "id_vehicle"),
+            inverseJoinColumns = @JoinColumn(name = "id_optional")
     )
     private List<Optional> optional;
 

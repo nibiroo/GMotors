@@ -1,7 +1,7 @@
-package com.github.nibiroo.GMotors.dto;
+package com.github.nibiroo.GMotors.dto.vehicle;
 
 import com.github.nibiroo.GMotors.entity.CarMaker;
-import jakarta.persistence.*;
+import com.github.nibiroo.GMotors.entity.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleDTO {
+public class VehicleUpdateDTO {
 
     private Long id;
 
@@ -25,7 +25,5 @@ public class VehicleDTO {
 
     private CarMaker carMaker;
 
-    @ElementCollection
-    private List<Long> optionalVehicleIds;
-
+    private List<Optional> optional;
 }

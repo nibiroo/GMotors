@@ -1,6 +1,8 @@
 package com.github.nibiroo.GMotors.controller;
 
-import com.github.nibiroo.GMotors.dto.AnnouncementDTO;
+import com.github.nibiroo.GMotors.dto.announcement.AnnouncementCreateDto;
+import com.github.nibiroo.GMotors.dto.announcement.AnnouncementResponseDto;
+import com.github.nibiroo.GMotors.dto.announcement.AnnouncementUpdateDto;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
 import com.github.nibiroo.GMotors.entity.Announcement;
 import com.github.nibiroo.GMotors.mapper.AnnouncementMapper;
@@ -14,17 +16,17 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/announcement/")
+@RequestMapping("/api/announcements/")
 public class AnnouncementController {
 
     private final AnnouncementService announcementService;
     private final AnnouncementMapper announcementMapper;
 
     @GetMapping
-    public ResponseEntity<APIListResponse<AnnouncementDTO>> findAll() {
-        var carMakerDTOS = this.announcementService.getAllAnnouncementFind()
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAll() {
+        var carMakerDTOS = this.announcementService.findAllAnnouncement()
                 .stream()
-                .map(this.announcementMapper::entityToDTO)
+                .map(this.announcementMapper::modalToResponseDto)
                 .collect(Collectors.toList());
         var response = new APIListResponse<>(carMakerDTOS);
 
@@ -32,21 +34,25 @@ public class AnnouncementController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AnnouncementDTO> findById(@PathVariable Long id) {
-        var announcementModel = this.announcementService.getByIdAnnouncementFind(id);
-        var announcementDTO = this.announcementMapper.entityToDTO(announcementModel);
+    public ResponseEntity<AnnouncementResponseDto> findById(@PathVariable Long id) {
+        var announcementModel = this.announcementService.getByIdAnnouncement(id);
+        var announcementDTO = this.announcementMapper.modalToResponseDto(announcementModel);
 
         return new ResponseEntity<>(announcementDTO, HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Announcement> save(@RequestBody Announcement announcement) {
-        return new ResponseEntity<>(this.announcementService.save(announcement), HttpStatus.CREATED);
+    public ResponseEntity<AnnouncementCreateDto> save(@RequestBody AnnouncementCreateDto announcementCreateDto) {
+        var model = announcementMapper.createDtoToModal(announcementCreateDto);
+        var dto = announcementMapper.modalToCreateDto(this.announcementService.save(model));
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Announcement> update(@PathVariable Long id, @RequestBody Announcement carMaker) {
-        return new ResponseEntity<>(this.announcementService.updateById(id, carMaker), HttpStatus.OK);
+    public ResponseEntity<AnnouncementUpdateDto> update(@PathVariable Long id, @RequestBody AnnouncementUpdateDto announcementUpdateDto) {
+        var model = announcementMapper.updateDtoToModal(announcementUpdateDto);
+        var dto = announcementMapper.modalToUpdateDto(this.announcementService.updateById(id, model));
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

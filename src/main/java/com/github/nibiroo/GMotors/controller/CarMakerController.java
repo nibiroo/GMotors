@@ -1,6 +1,8 @@
 package com.github.nibiroo.GMotors.controller;
 
-import com.github.nibiroo.GMotors.dto.CarMakerDTO;
+import com.github.nibiroo.GMotors.dto.carMaker.CarMakerCreateDTO;
+import com.github.nibiroo.GMotors.dto.carMaker.CarMakerResponseDTO;
+import com.github.nibiroo.GMotors.dto.carMaker.CarMakerUpdateDTO;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
 import com.github.nibiroo.GMotors.entity.CarMaker;
 import com.github.nibiroo.GMotors.mapper.CarMakerMapper;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/carmaker/")
+@RequestMapping("/api/carmakers/")
 public class CarMakerController {
 
     private final CarMakerService carMakerService;
@@ -26,10 +28,10 @@ public class CarMakerController {
     }
 
     @GetMapping
-    public ResponseEntity<APIListResponse<CarMakerDTO>> findAll() {
-        var carMakerDTOS = this.carMakerService.getAllCarMakerFind()
+    public ResponseEntity<APIListResponse<CarMakerResponseDTO>> findAll() {
+        var carMakerDTOS = this.carMakerService.findAllCarMaker()
                                                 .stream()
-                                                .map(this.carMakerMapper::entityToDTO)
+                                                .map(this.carMakerMapper::modalToResponseDto)
                                                 .collect(Collectors.toList());
         var response = new APIListResponse<>(carMakerDTOS);
 
@@ -37,21 +39,25 @@ public class CarMakerController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CarMakerDTO> findById(@PathVariable Long id) {
-        var carMakerModel = this.carMakerService.getByIdCarMakerFind(id);
-        var carMakerDTO = this.carMakerMapper.entityToDTO(carMakerModel);
+    public ResponseEntity<CarMakerResponseDTO> findById(@PathVariable Long id) {
+        var carMakerModel = this.carMakerService.getByIdCarMaker(id);
+        var carMakerDTO = this.carMakerMapper.modalToResponseDto(carMakerModel);
 
         return new ResponseEntity<>(carMakerDTO, HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<CarMaker> save(@RequestBody CarMaker carMaker) {
-        return new ResponseEntity<>(this.carMakerService.save(carMaker), HttpStatus.CREATED);
+    public ResponseEntity<CarMakerCreateDTO> save(@RequestBody CarMakerCreateDTO carMakerCreateDTO) {
+        var model = carMakerMapper.createDtoToModal(carMakerCreateDTO);
+        var dto = carMakerMapper.modalToCreateDto(this.carMakerService.save(model));
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<CarMaker> update(@PathVariable Long id, @RequestBody CarMaker carMaker) {
-        return new ResponseEntity<>(this.carMakerService.updateById(id, carMaker), HttpStatus.OK);
+    public ResponseEntity<CarMakerUpdateDTO> update(@PathVariable Long id, @RequestBody CarMakerUpdateDTO carMakerUpdateDTO) {
+        var model = carMakerMapper.updateDtoToModal(carMakerUpdateDTO);
+        var dto = carMakerMapper.modalToUpdateDto(this.carMakerService.updateById(id, model));
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

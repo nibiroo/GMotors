@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Optional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "short_description")

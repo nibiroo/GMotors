@@ -1,7 +1,5 @@
-package com.github.nibiroo.GMotors.dto;
+package com.github.nibiroo.GMotors.dto.optional;
 
-import com.github.nibiroo.GMotors.entity.Vehicle;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OptionalVehicleDTO {
+public class OptionalResponseDTO {
     private Long id;
 
     private String shortDescription;
-
-    private Vehicle vehicle;
 }

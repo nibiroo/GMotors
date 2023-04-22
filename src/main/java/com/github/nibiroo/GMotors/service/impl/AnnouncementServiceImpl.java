@@ -2,9 +2,7 @@ package com.github.nibiroo.GMotors.service.impl;
 
 import com.github.nibiroo.GMotors.entity.Announcement;
 import com.github.nibiroo.GMotors.repository.AnnouncementRepository;
-import com.github.nibiroo.GMotors.repository.OptionalVehicleRepository;
 import com.github.nibiroo.GMotors.service.AnnouncementService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,13 +18,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public AnnouncementServiceImpl(AnnouncementRepository announcementRepository) {
         this.announcementRepository = announcementRepository;
     }
+
     @Override
-    public List<Announcement> getAllAnnouncementFind() {
+    public List<Announcement> findAllAnnouncement() {
         return this.announcementRepository.findAll();
     }
 
     @Override
-    public Announcement getByIdAnnouncementFind(Long id) {
+    public Announcement getByIdAnnouncement(Long id) {
         return this.announcementRepository.findById(id)
                                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "There isn't Announcement with id " + id));
     }

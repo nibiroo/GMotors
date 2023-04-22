@@ -1,4 +1,4 @@
-package com.github.nibiroo.GMotors.dto;
+package com.github.nibiroo.GMotors.dto.optional;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarMakerDTO {
-    private Long id;
-
-    private String name;
-
-    private String nativeCountry;
+public class OptionalCreateDTO {
+    private String shortDescription;
 }

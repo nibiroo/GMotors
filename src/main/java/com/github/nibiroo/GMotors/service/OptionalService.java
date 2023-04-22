@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface OptionalVehicleService {
-    List<Optional> getAllOptionalVehicleFind();
+public interface OptionalService {
+    List<Optional> findAllOptionalVehicle();
 
-    Optional getByIdOptionalVehicleFind(Long id);
+    Optional getByIdOptionalVehicle(Long id);
 
     Optional save(Optional optional);
 

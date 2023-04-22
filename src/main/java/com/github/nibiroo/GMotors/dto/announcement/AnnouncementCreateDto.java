@@ -1,7 +1,6 @@
-package com.github.nibiroo.GMotors.dto;
+package com.github.nibiroo.GMotors.dto.announcement;
 
 import com.github.nibiroo.GMotors.entity.Vehicle;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnnouncementDTO {
-    private Long id;
-
+public class AnnouncementCreateDto {
     private Vehicle vehicle;
 
     private float price;

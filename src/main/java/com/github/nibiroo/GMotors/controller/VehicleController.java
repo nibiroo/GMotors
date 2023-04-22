@@ -1,15 +1,11 @@
 package com.github.nibiroo.GMotors.controller;
 
-import com.github.nibiroo.GMotors.dto.CarMakerDTO;
-import com.github.nibiroo.GMotors.dto.VehicleDTO;
+import com.github.nibiroo.GMotors.dto.vehicle.VehicleCreateDTO;
+import com.github.nibiroo.GMotors.dto.vehicle.VehicleResponseDTO;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
-import com.github.nibiroo.GMotors.entity.CarMaker;
 import com.github.nibiroo.GMotors.entity.Vehicle;
-import com.github.nibiroo.GMotors.mapper.CarMakerMapper;
 import com.github.nibiroo.GMotors.mapper.VehicleMapper;
-import com.github.nibiroo.GMotors.service.CarMakerService;
 import com.github.nibiroo.GMotors.service.VehicleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +27,10 @@ public class VehicleController {
     }
 
     @GetMapping()
-    public ResponseEntity<APIListResponse<VehicleDTO>> findAll() {
-        var vehicleDTOS = this.vehicleService.getAllVehicleFind()
+    public ResponseEntity<APIListResponse<VehicleResponseDTO>> findAll() {
+        var vehicleDTOS = this.vehicleService.findAllVehicle()
                 .stream()
-                .map(this.vehicleMapper::entityToDTO)
+                .map(this.vehicleMapper::modalToResponseDto)
                 .collect(Collectors.toList());
         var response = new APIListResponse<>(vehicleDTOS);
 
@@ -42,17 +38,18 @@ public class VehicleController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<VehicleDTO> findById(@PathVariable Long id) {
-        var vehicleModel = this.vehicleService.getByIVehicleFind(id);
-        var vehicleDTO = this.vehicleMapper.entityToDTO(vehicleModel);
+    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable Long id) {
+        var vehicleModel = this.vehicleService.getByIVehicle(id);
+        var vehicleDTO = this.vehicleMapper.modalToResponseDto(vehicleModel);
 
         return new ResponseEntity<>(vehicleDTO, HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Vehicle> save(@RequestBody Vehicle vehicle) {
-        //Receber DTO no RequestBody; converter DTO para Model; Salva no service; Converte Model para DTO; Volta um DTO
-        return new ResponseEntity<>(this.vehicleService.save(vehicle), HttpStatus.CREATED);
+    public ResponseEntity<VehicleCreateDTO> save(@RequestBody VehicleCreateDTO vehicleCreateDTO) {
+        var model = vehicleMapper.createDtoToModal(vehicleCreateDTO);
+        var dto = vehicleMapper.modalToCreateDto(this.vehicleService.save(model));
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
