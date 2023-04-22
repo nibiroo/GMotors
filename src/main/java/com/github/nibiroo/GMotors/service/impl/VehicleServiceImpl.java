@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,7 +37,24 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle save(Vehicle vehicle) {
-        return this.vehicleRepository.save(vehicle);
+        Vehicle vehicleInt = new Vehicle();
+        vehicleInt.setYear(vehicle.getYear());
+        vehicleInt.setModel(vehicle.getModel());
+        vehicleInt.setCarMaker(vehicle.getCarMaker());
+        vehicleInt.setIsAutomatic(vehicle.getIsAutomatic());
+
+        List<Optional> optionals = new ArrayList<>();
+        for (Optional eachoptional : vehicle.getOptional()) {
+            Optional optional = optionalRepository.findById(eachoptional.getId())
+                                                    .orElseThrow(() -> new ResponseStatusException(
+                                                                            HttpStatus.NOT_FOUND,
+                                                                            "There isn't optional with id " + eachoptional.getId()));
+            optionals.add(optional);
+        }
+
+        vehicleInt.setOptional(optionals);
+
+        return this.vehicleRepository.save(vehicleInt);
     }
 
     @Override

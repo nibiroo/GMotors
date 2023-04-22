@@ -4,7 +4,6 @@ import com.github.nibiroo.GMotors.dto.optional.OptionalCreateDTO;
 import com.github.nibiroo.GMotors.dto.optional.OptionalResponseDTO;
 import com.github.nibiroo.GMotors.dto.optional.OptionalUpdateDTO;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
-import com.github.nibiroo.GMotors.entity.Optional;
 import com.github.nibiroo.GMotors.mapper.OptionalMapper;
 import com.github.nibiroo.GMotors.service.OptionalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/optional/")
+@RequestMapping("/api/optionals/")
 public class OptionalController {
     private final OptionalService optionalService;
     private final OptionalMapper optionalMapper;
@@ -26,7 +25,7 @@ public class OptionalController {
         this.optionalMapper = optionalMapper;
     }
 
-    @GetMapping(produces = "application/json")
+    @GetMapping()
     public ResponseEntity<APIListResponse<OptionalResponseDTO>> findAll() {
         var optionalVehicleDTOS = this.optionalService.findAllOptionalVehicle()
                                                                 .stream()
@@ -38,7 +37,7 @@ public class OptionalController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(name = "{id}", produces = "application/json")
+    @GetMapping("{id}")
     public ResponseEntity<OptionalResponseDTO> findById(@PathVariable Long id) {
         var optionalVehicleModel = this.optionalService.getByIdOptionalVehicle(id);
         var optionalVehicleDTO = this.optionalMapper.modalToResponseDto(optionalVehicleModel);

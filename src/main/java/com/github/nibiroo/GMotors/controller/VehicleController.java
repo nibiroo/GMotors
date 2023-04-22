@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/vehicle/")
+@RequestMapping("/api/vehicles/")
 public class VehicleController {
 
     private final VehicleService vehicleService;

@@ -23,4 +23,8 @@ public class CarMaker {
 
     @Column(name = "native_country")
     private String nativeCountry;
+
+    public CarMaker (Long id) {
+        this.setId(id);
+    }
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "optional_vehicle")
+@Table(name = "optional")
 public class Optional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
