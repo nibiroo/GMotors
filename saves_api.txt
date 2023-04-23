@@ -1,0 +1,98 @@
+***ANNOUNCEMENTS***
+{
+	"vehicle": {
+			"id": 2,
+			"model": "BMW Z4",
+			"year": 2022,
+			"isAutomatic": true,
+			"carMaker": {
+				"id": 1,
+				"name": "BMW",
+				"nativeCountry": "Alemanha"
+			},
+			"optional": [
+				{
+					"id": 1,
+					"shortDescription": "Banco de Couro"
+				},
+				{
+					"id": 2,
+					"shortDescription": "Airbag"
+				},
+				{
+					"id": 3,
+					"shortDescription": "Ar condicionado"
+				}
+			]
+		},
+	"price": 449.800,
+	"km": 15.690,
+	"city": "Campinas/SP"
+}
+--
+{
+	"vehicle": {
+			"id": 3,
+			"model": "Audi TT",
+			"year": 2016,
+			"isAutomatic": true,
+			"carMaker": {
+				"id": 2,
+				"name": "Audi",
+				"nativeCountry": "Alemanha"
+			},
+			"optional": [
+				{
+					"id": 1,
+					"shortDescription": "Banco de Couro"
+				},
+				{
+					"id": 2,
+					"shortDescription": "Airbag"
+				},
+				{
+					"id": 3,
+					"shortDescription": "Ar condicionado"
+				}
+			]
+		},
+	"price": 265.000,
+	"km": 0,
+	"city": "Lavras/MG"
+}
+
+***VEHICLES***
+{
+	"model": "BMW Z4",
+	"year": "2022",
+	"isAutomatic": true,
+	"carMaker": {"id": 1, "name": "BMW", "nativeCountry": "Alemanha"},
+	"optional": [
+		{"id": 1, "shortDescription": "Banco de Couro"},
+		{"id": 2, "shortDescription": "Airbag"},
+		{"id": 3, "shortDescription": "Ar condicionado"}
+	]
+}
+--
+{
+	"model": "Audi TT",
+	"year": 2016,
+	"isAutomatic": true,
+	"carMaker": {"id": 2, "name": "Audi", "nativeCountry": "Alemanha"},
+	"optional": [
+		{"id": 1, "shortDescription": "Banco de Couro"},
+		{"id": 2, "shortDescription": "Airbag"},
+		{"id": 3, "shortDescription": "Ar condicionado"}
+	]
+}
+
+***OPTIONAL***
+{"shortDescription": "Banco de Couro"}
+{"shortDescription": "Airbag"}
+{"shortDescription": "Ar condicionado"}
+
+***CARMAKER***
+{
+	"name": "BMW",
+	"nativeCountry": "Germany"
+}
