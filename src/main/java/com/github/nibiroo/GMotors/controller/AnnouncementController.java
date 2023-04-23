@@ -42,7 +42,40 @@ public class AnnouncementController {
 
     @GetMapping("useds/")
     public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesUseds() {
-        var announcementResponseDtos = this.announcementService.findAllAnnouncementWithVehiclesUseds()
+        var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesUseds()
+                .stream()
+                .map(this.announcementMapper::modalToResponseDto)
+                .collect(Collectors.toList());
+        var response = new APIListResponse<>(announcementResponseDtos);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("news/")
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesNews() {
+        var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesNews()
+                .stream()
+                .map(this.announcementMapper::modalToResponseDto)
+                .collect(Collectors.toList());
+        var response = new APIListResponse<>(announcementResponseDtos);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("rangekm/{smaller}/{bigger}")
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangeKm(@PathVariable("smaller") Float smallerKm, @PathVariable("bigger") Float biggerKm) {
+        var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesWithRangeKm(smallerKm, biggerKm)
+                .stream()
+                .map(this.announcementMapper::modalToResponseDto)
+                .collect(Collectors.toList());
+        var response = new APIListResponse<>(announcementResponseDtos);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("rangeprice/{smaller}/{bigger}")
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangePrice(@PathVariable("smaller") Float smallerPrice, @PathVariable("bigger") Float biggerPrice) {
+        var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesWithRangePrice(smallerPrice, biggerPrice)
                 .stream()
                 .map(this.announcementMapper::modalToResponseDto)
                 .collect(Collectors.toList());

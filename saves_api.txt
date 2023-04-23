@@ -1,7 +1,7 @@
 ***ANNOUNCEMENTS***
 {
 	"vehicle": {
-			"id": 2,
+			"id": 1,
 			"model": "BMW Z4",
 			"year": 2022,
 			"isAutomatic": true,
@@ -32,7 +32,7 @@
 --
 {
 	"vehicle": {
-			"id": 3,
+			"id": 2,
 			"model": "Audi TT",
 			"year": 2016,
 			"isAutomatic": true,
@@ -94,5 +94,9 @@
 ***CARMAKER***
 {
 	"name": "BMW",
+	"nativeCountry": "Germany"
+},
+{
+	"name": "Audi",
 	"nativeCountry": "Germany"
 }

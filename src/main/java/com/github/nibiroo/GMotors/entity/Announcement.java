@@ -1,5 +1,6 @@
 package com.github.nibiroo.GMotors.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "announcement")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Announcement {
 
     @Id
@@ -25,10 +27,10 @@ public class Announcement {
     @JoinColumn(name = "id_vehicle")
     private Vehicle vehicle;
 
-    @Column(name = "price")
-    private float price;
+    @Column(name = "price", precision = 20, scale = 2)
+    private Float price;
 
-    @Column(name = "km")
+    @Column(name = "km", precision = 20, scale = 2)
     private Float km;
 
     @Column(name = "city")

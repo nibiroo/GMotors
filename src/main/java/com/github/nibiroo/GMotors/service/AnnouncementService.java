@@ -1,9 +1,9 @@
 package com.github.nibiroo.GMotors.service;
 
 import com.github.nibiroo.GMotors.entity.Announcement;
-import com.github.nibiroo.GMotors.entity.Vehicle;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -12,7 +12,13 @@ public interface AnnouncementService {
 
     Announcement getByIdAnnouncement(Long id);
 
-    List<Announcement> findAllAnnouncementWithVehiclesUseds();
+    List<Announcement> findAllAnnouncementsWithVehiclesUseds();
+
+    List<Announcement> findAllAnnouncementsWithVehiclesNews();
+
+    List<Announcement> findAllAnnouncementsWithVehiclesWithRangeKm(Float smallerKm, Float biggerKm);
+
+    List<Announcement> findAllAnnouncementsWithVehiclesWithRangePrice(Float smallerPrice, Float biggerPrice);
 
     Announcement save(Announcement announcement);
 
