@@ -4,7 +4,6 @@ import com.github.nibiroo.GMotors.dto.announcement.AnnouncementCreateDto;
 import com.github.nibiroo.GMotors.dto.announcement.AnnouncementResponseDto;
 import com.github.nibiroo.GMotors.dto.announcement.AnnouncementUpdateDto;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
-import com.github.nibiroo.GMotors.entity.Announcement;
 import com.github.nibiroo.GMotors.mapper.AnnouncementMapper;
 import com.github.nibiroo.GMotors.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +38,17 @@ public class AnnouncementController {
         var announcementDTO = this.announcementMapper.modalToResponseDto(announcementModel);
 
         return new ResponseEntity<>(announcementDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("useds/")
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesUseds() {
+        var announcementResponseDtos = this.announcementService.findAllAnnouncementWithVehiclesUseds()
+                .stream()
+                .map(this.announcementMapper::modalToResponseDto)
+                .collect(Collectors.toList());
+        var response = new APIListResponse<>(announcementResponseDtos);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")

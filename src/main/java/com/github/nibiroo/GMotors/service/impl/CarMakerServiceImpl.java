@@ -1,7 +1,9 @@
 package com.github.nibiroo.GMotors.service.impl;
 
 import com.github.nibiroo.GMotors.entity.CarMaker;
+import com.github.nibiroo.GMotors.entity.Vehicle;
 import com.github.nibiroo.GMotors.repository.CarMakerRepository;
+import com.github.nibiroo.GMotors.repository.VehicleRepository;
 import com.github.nibiroo.GMotors.service.CarMakerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ import java.util.List;
 public class CarMakerServiceImpl implements CarMakerService {
 
     private final CarMakerRepository carMakerRepository;
+    private final VehicleRepository vehicleRepository;
 
     @Autowired
-    public CarMakerServiceImpl(CarMakerRepository carMakerRepository) {
+    public CarMakerServiceImpl(CarMakerRepository carMakerRepository, VehicleRepository vehicleRepository) {
         this.carMakerRepository = carMakerRepository;
+        this.vehicleRepository = vehicleRepository;
     }
 
     @Override
@@ -30,6 +34,11 @@ public class CarMakerServiceImpl implements CarMakerService {
     public CarMaker getByIdCarMaker(Long id) {
         return this.carMakerRepository.findById(id)
                                         .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public List<Vehicle> findAllVehiclesByIdCarMaker(Long id) {
+        return this.vehicleRepository.findByCarMakerId(id);
     }
 
     @Override

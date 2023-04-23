@@ -1,6 +1,7 @@
 package com.github.nibiroo.GMotors.service;
 
 import com.github.nibiroo.GMotors.entity.CarMaker;
+import com.github.nibiroo.GMotors.entity.Vehicle;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface CarMakerService {
     List<CarMaker> findAllCarMaker();
 
     CarMaker getByIdCarMaker(Long id);
+
+    List<Vehicle> findAllVehiclesByIdCarMaker(Long id);
 
     CarMaker save(CarMaker carMaker);
 

@@ -58,14 +58,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void addOptional(Long vehicleId, Long optionalId) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "There isn't vehicle with id " + vehicleId));
-        Optional optional = optionalRepository.findById(optionalId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "There isn't optional with id " + optionalId));
-        vehicle.getOptional().add(optional);
-        vehicleRepository.save(vehicle);
-    }
-
-    @Override
     public Vehicle updateById(Long id, Vehicle vehicle) {
         this.vehicleRepository.findById(id).map(it -> {
            vehicle.setId(it.getId());

@@ -26,7 +26,7 @@ public class VehicleController {
         this.vehicleMapper = vehicleMapper;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<APIListResponse<VehicleResponseDTO>> findAll() {
         var vehicleDTOS = this.vehicleService.findAllVehicle()
                 .stream()

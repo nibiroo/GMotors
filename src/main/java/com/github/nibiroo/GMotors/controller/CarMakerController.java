@@ -3,9 +3,11 @@ package com.github.nibiroo.GMotors.controller;
 import com.github.nibiroo.GMotors.dto.carMaker.CarMakerCreateDTO;
 import com.github.nibiroo.GMotors.dto.carMaker.CarMakerResponseDTO;
 import com.github.nibiroo.GMotors.dto.carMaker.CarMakerUpdateDTO;
+import com.github.nibiroo.GMotors.dto.vehicle.VehicleResponseDTO;
 import com.github.nibiroo.GMotors.entity.APIListResponse;
 import com.github.nibiroo.GMotors.entity.CarMaker;
 import com.github.nibiroo.GMotors.mapper.CarMakerMapper;
+import com.github.nibiroo.GMotors.mapper.VehicleMapper;
 import com.github.nibiroo.GMotors.service.CarMakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +22,13 @@ public class CarMakerController {
 
     private final CarMakerService carMakerService;
     private final CarMakerMapper carMakerMapper;
+    private final VehicleMapper vehicleMapper;
 
     @Autowired
-    public CarMakerController(CarMakerService carMakerService, CarMakerMapper carMakerMapper) {
+    public CarMakerController(CarMakerService carMakerService, CarMakerMapper carMakerMapper, VehicleMapper vehicleMapper) {
         this.carMakerService = carMakerService;
         this.carMakerMapper = carMakerMapper;
+        this.vehicleMapper = vehicleMapper;
     }
 
     @GetMapping
@@ -44,6 +48,17 @@ public class CarMakerController {
         var carMakerDTO = this.carMakerMapper.modalToResponseDto(carMakerModel);
 
         return new ResponseEntity<>(carMakerDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/vehicles/")
+    public ResponseEntity<APIListResponse<VehicleResponseDTO>> findAllVehiclesByIdCarMaker(@PathVariable Long id){
+        var vehiclesDTOS = this.carMakerService.findAllVehiclesByIdCarMaker(id)
+                                                            .stream()
+                                                            .map(this.vehicleMapper::modalToResponseDto)
+                                                            .collect(Collectors.toList());
+        var response = new APIListResponse<>(vehiclesDTOS);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")

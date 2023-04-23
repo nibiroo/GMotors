@@ -14,8 +14,6 @@ public interface VehicleService {
 
     Vehicle save(Vehicle carMaker);
 
-    void addOptional(Long veiculoId, Long opcionalId);
-
     Vehicle updateById(Long id, Vehicle carMakerDTO);
 
     void deleteById(Long id);

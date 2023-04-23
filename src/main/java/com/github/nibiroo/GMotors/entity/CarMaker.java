@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,7 +25,6 @@ public class CarMaker {
 
     @Column(name = "native_country")
     private String nativeCountry;
-
     public CarMaker (Long id) {
         this.setId(id);
     }
