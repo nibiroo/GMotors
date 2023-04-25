@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "announcement")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Announcement {
 
     @Id
@@ -28,10 +28,10 @@ public class Announcement {
     private Vehicle vehicle;
 
     @Column(name = "price", precision = 20, scale = 2)
-    private Float price;
+    private BigDecimal price;
 
     @Column(name = "km", precision = 20, scale = 2)
-    private Float km;
+    private BigDecimal km;
 
     @Column(name = "city")
     private String city;

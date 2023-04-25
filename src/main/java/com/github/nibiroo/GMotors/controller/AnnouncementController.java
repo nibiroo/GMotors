@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @RestController
@@ -63,7 +64,7 @@ public class AnnouncementController {
     }
 
     @GetMapping("rangekm/{smaller}/{bigger}")
-    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangeKm(@PathVariable("smaller") Float smallerKm, @PathVariable("bigger") Float biggerKm) {
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangeKm(@PathVariable("smaller") BigDecimal smallerKm, @PathVariable("bigger") BigDecimal biggerKm) {
         var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesWithRangeKm(smallerKm, biggerKm)
                 .stream()
                 .map(this.announcementMapper::modalToResponseDto)
@@ -74,7 +75,7 @@ public class AnnouncementController {
     }
 
     @GetMapping("rangeprice/{smaller}/{bigger}")
-    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangePrice(@PathVariable("smaller") Float smallerPrice, @PathVariable("bigger") Float biggerPrice) {
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangePrice(@PathVariable("smaller") BigDecimal smallerPrice, @PathVariable("bigger") BigDecimal biggerPrice) {
         var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesWithRangePrice(smallerPrice, biggerPrice)
                 .stream()
                 .map(this.announcementMapper::modalToResponseDto)

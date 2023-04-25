@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,9 +15,9 @@ import lombok.Setter;
 public class AnnouncementCreateDto {
     private Vehicle vehicle;
 
-    private float price;
+    private BigDecimal price;
 
-    private Float km;
+    private BigDecimal km;
 
     private String city;
 }
