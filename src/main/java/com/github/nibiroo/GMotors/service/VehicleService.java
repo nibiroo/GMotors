@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface VehicleService {
 
-    List<Vehicle> findAllVehicle();
+    List<Vehicle> findAllVehicle(int page, int recordCount);
 
     Vehicle getByIVehicle(Long id);
 

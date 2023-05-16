@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface OptionalService {
-    List<Optional> findAllOptionalVehicle();
+    List<Optional> findAllOptionalVehicle(int page, int recordCount);
 
     Optional getByIdOptionalVehicle(Long id);
 

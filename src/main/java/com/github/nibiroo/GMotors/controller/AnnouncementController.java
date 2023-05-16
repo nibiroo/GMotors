@@ -16,15 +16,16 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/announcements/")
+@RequestMapping("/api/announcements")
 public class AnnouncementController {
 
     private final AnnouncementService announcementService;
     private final AnnouncementMapper announcementMapper;
 
-    @GetMapping
-    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAll() {
-        var carMakerDTOS = this.announcementService.findAllAnnouncement()
+    @GetMapping(value = {"","/"})
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                            @RequestParam(value = "limit", defaultValue = "50") int limit) {
+        var carMakerDTOS = this.announcementService.findAllAnnouncement(page, limit)
                 .stream()
                 .map(this.announcementMapper::modalToResponseDto)
                 .collect(Collectors.toList());
@@ -33,7 +34,7 @@ public class AnnouncementController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AnnouncementResponseDto> findById(@PathVariable Long id) {
         var announcementModel = this.announcementService.getByIdAnnouncement(id);
         var announcementDTO = this.announcementMapper.modalToResponseDto(announcementModel);
@@ -41,7 +42,7 @@ public class AnnouncementController {
         return new ResponseEntity<>(announcementDTO, HttpStatus.OK);
     }
 
-    @GetMapping("useds/")
+    @GetMapping("/useds/")
     public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesUseds() {
         var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesUseds()
                 .stream()
@@ -52,7 +53,7 @@ public class AnnouncementController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("news/")
+    @GetMapping("/news/")
     public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesNews() {
         var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesNews()
                 .stream()
@@ -63,8 +64,8 @@ public class AnnouncementController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("rangekm/{smaller}/{bigger}")
-    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangeKm(@PathVariable("smaller") BigDecimal smallerKm, @PathVariable("bigger") BigDecimal biggerKm) {
+    @GetMapping(value = {"/rangekm","/rangekm/"})
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangeKm(@RequestParam("smallerkm") BigDecimal smallerKm, @RequestParam("biggerkm") BigDecimal biggerKm) {
         var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesWithRangeKm(smallerKm, biggerKm)
                 .stream()
                 .map(this.announcementMapper::modalToResponseDto)
@@ -74,8 +75,8 @@ public class AnnouncementController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("rangeprice/{smaller}/{bigger}")
-    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangePrice(@PathVariable("smaller") BigDecimal smallerPrice, @PathVariable("bigger") BigDecimal biggerPrice) {
+    @GetMapping(value = {"/rangeprice","/rangeprice/"})
+    public ResponseEntity<APIListResponse<AnnouncementResponseDto>> findAllAnnouncementsWithVehiclesRangePrice(@RequestParam("smallerprice") BigDecimal smallerPrice, @RequestParam("biggerprice") BigDecimal biggerPrice) {
         var announcementResponseDtos = this.announcementService.findAllAnnouncementsWithVehiclesWithRangePrice(smallerPrice, biggerPrice)
                 .stream()
                 .map(this.announcementMapper::modalToResponseDto)
@@ -92,14 +93,14 @@ public class AnnouncementController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AnnouncementUpdateDto> update(@PathVariable Long id, @RequestBody AnnouncementUpdateDto announcementUpdateDto) {
         var model = announcementMapper.updateDtoToModal(announcementUpdateDto);
         var dto = announcementMapper.modalToUpdateDto(this.announcementService.updateById(id, model));
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         this.announcementService.deleteById(id);

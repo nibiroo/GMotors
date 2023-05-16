@@ -11,10 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/vehicles/")
+@RequestMapping("/api/vehicles")
 public class VehicleController {
 
     private final VehicleService vehicleService;
@@ -26,9 +27,10 @@ public class VehicleController {
         this.vehicleMapper = vehicleMapper;
     }
 
-    @GetMapping
-    public ResponseEntity<APIListResponse<VehicleResponseDTO>> findAll() {
-        var vehicleDTOS = this.vehicleService.findAllVehicle()
+    @GetMapping(value = {"","/"})
+    public ResponseEntity<APIListResponse<VehicleResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                       @RequestParam(value = "limit", defaultValue = "50") int limit) {
+        var vehicleDTOS = this.vehicleService.findAllVehicle(page, limit)
                 .stream()
                 .map(this.vehicleMapper::modalToResponseDto)
                 .collect(Collectors.toList());
@@ -37,7 +39,7 @@ public class VehicleController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<VehicleResponseDTO> findById(@PathVariable Long id) {
         var vehicleModel = this.vehicleService.getByIVehicle(id);
         var vehicleDTO = this.vehicleMapper.modalToResponseDto(vehicleModel);
@@ -52,12 +54,12 @@ public class VehicleController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Vehicle> update(@PathVariable Long id, @RequestBody Vehicle vehicle) {
         return new ResponseEntity<>(this.vehicleService.updateById(id, vehicle), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         this.vehicleService.deleteById(id);

@@ -7,6 +7,8 @@ import com.github.nibiroo.GMotors.repository.VehicleRepository;
 import com.github.nibiroo.GMotors.service.CarMakerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,8 +28,9 @@ public class CarMakerServiceImpl implements CarMakerService {
     }
 
     @Override
-    public List<CarMaker> findAllCarMaker() {
-        return this.carMakerRepository.findAll();
+    public List<CarMaker> findAllCarMaker(int pageNo, int recordCount) {
+        Pageable pageable = PageRequest.of(pageNo, recordCount);
+        return this.carMakerRepository.findAll(pageable).get().toList();
     }
 
     @Override
@@ -37,8 +40,9 @@ public class CarMakerServiceImpl implements CarMakerService {
     }
 
     @Override
-    public List<Vehicle> findAllVehiclesByIdCarMaker(Long id) {
-        return this.vehicleRepository.findByCarMakerId(id);
+    public List<Vehicle> findAllVehiclesByIdCarMaker(Long id, int pageNo, int recordCount) {
+        Pageable pageable = PageRequest.of(pageNo, recordCount);
+        return this.vehicleRepository.findByCarMakerId(id, pageable);
     }
 
     @Override

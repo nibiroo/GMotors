@@ -9,11 +9,11 @@ import java.util.List;
 @Service
 public interface CarMakerService {
 
-    List<CarMaker> findAllCarMaker();
+    List<CarMaker> findAllCarMaker(int pageNo, int recordCount);
 
     CarMaker getByIdCarMaker(Long id);
 
-    List<Vehicle> findAllVehiclesByIdCarMaker(Long id);
+    List<Vehicle> findAllVehiclesByIdCarMaker(Long id, int pageNo, int recordCount);
 
     CarMaker save(CarMaker carMaker);
 

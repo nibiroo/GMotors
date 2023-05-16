@@ -7,6 +7,8 @@ import com.github.nibiroo.GMotors.repository.VehicleRepository;
 import com.github.nibiroo.GMotors.service.VehicleService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,8 +28,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> findAllVehicle() {
-        return this.vehicleRepository.findAll();
+    public List<Vehicle> findAllVehicle(int page, int recordCount) {
+        Pageable pageable = PageRequest.of(page, recordCount);
+        return this.vehicleRepository.findAll(pageable).get().toList();
     }
 
     @Override

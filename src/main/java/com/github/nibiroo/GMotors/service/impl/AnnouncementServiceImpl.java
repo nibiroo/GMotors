@@ -4,6 +4,8 @@ import com.github.nibiroo.GMotors.entity.Announcement;
 import com.github.nibiroo.GMotors.repository.AnnouncementRepository;
 import com.github.nibiroo.GMotors.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,8 +24,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public List<Announcement> findAllAnnouncement() {
-        return this.announcementRepository.findAll();
+    public List<Announcement> findAllAnnouncement(int page, int recordCount) {
+        Pageable pageable = PageRequest.of(page, recordCount);
+        return this.announcementRepository.findAll(pageable).stream().toList();
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface AnnouncementService {
-    List<Announcement> findAllAnnouncement();
+    List<Announcement> findAllAnnouncement(int page, int recordCount);
 
     Announcement getByIdAnnouncement(Long id);
 

@@ -4,6 +4,8 @@ import com.github.nibiroo.GMotors.entity.Optional;
 import com.github.nibiroo.GMotors.repository.OptionalRepository;
 import com.github.nibiroo.GMotors.service.OptionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,8 +22,9 @@ public class OptionalServiceImpl implements OptionalService {
     }
 
     @Override
-    public List<Optional> findAllOptionalVehicle() {
-        return this.optionalRepository.findAll();
+    public List<Optional> findAllOptionalVehicle(int page, int recordCount) {
+        Pageable pageable = PageRequest.of(page, recordCount);
+        return this.optionalRepository.findAll(pageable).get().toList();
     }
 
     @Override

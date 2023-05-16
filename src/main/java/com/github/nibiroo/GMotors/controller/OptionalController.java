@@ -11,10 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/optionals/")
+@RequestMapping("/api/optionals")
 public class OptionalController {
     private final OptionalService optionalService;
     private final OptionalMapper optionalMapper;
@@ -25,9 +26,10 @@ public class OptionalController {
         this.optionalMapper = optionalMapper;
     }
 
-    @GetMapping()
-    public ResponseEntity<APIListResponse<OptionalResponseDTO>> findAll() {
-        var optionalVehicleDTOS = this.optionalService.findAllOptionalVehicle()
+    @GetMapping(value = {"","/"})
+    public ResponseEntity<APIListResponse<OptionalResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                        @RequestParam(value = "limit", defaultValue = "50") int limit) {
+        var optionalVehicleDTOS = this.optionalService.findAllOptionalVehicle(page, limit)
                                                                 .stream()
                                                                 .map(this.optionalMapper::modalToResponseDto)
                                                                 .collect(Collectors.toList());
@@ -37,7 +39,7 @@ public class OptionalController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<OptionalResponseDTO> findById(@PathVariable Long id) {
         var optionalVehicleModel = this.optionalService.getByIdOptionalVehicle(id);
         var optionalVehicleDTO = this.optionalMapper.modalToResponseDto(optionalVehicleModel);
@@ -52,14 +54,14 @@ public class OptionalController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<OptionalUpdateDTO> updateById(@PathVariable Long id, @RequestBody OptionalUpdateDTO optionalUpdateDTO) {
         var model = optionalMapper.updateDtoToModal(optionalUpdateDTO);
         var dto = optionalMapper.modalToUpdateDto(this.optionalService.updateById(id, model));
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id) {
         this.optionalService.deleteById(id);
